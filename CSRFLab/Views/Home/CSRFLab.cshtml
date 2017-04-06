@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "CSRF Lab";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>CSRF Html Page</h2>
+        <div>
+            <form id="form1" method="post" action="/api/myform" enctype="application/x-www-form-urlencoded">
+                @Html.AntiForgeryToken()
+                <div>
+                    <label for="name">Name</label>
+                </div>
+                <div>
+                    <input type="text" name="name" placeholder="Enter some data" />
+                </div>
+                <div>
+                    <button id="postData" name="postData">Post to Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="jsData" class="col-md-6">
+        <h2> Ajax Safe</h2>
+        @Html.AntiForgeryToken()
+        <input id="ItemJs" type="text" name="text" placeholder="Enter some data" />
+        <div>
+            <button id="postJS" name="postJS"> Post JS</button>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(function () {
+            $("#postJS").on("click", function () {
+
+                $.ajax({
+                    dataType: "json",
+                    data: JSON.stringify({ name: $("#ItemJs").val() }),
+                    type: "POST",
+                    headers: {
+                        "_RequestVerificationToken": $("#jsData input[name='__RequestVerificationToken']").val()
+                        //"_RequestVerificationToken":"hello"
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    url: "/api/Student"
+
+                }).success(function (resp) {
+                    alert(resp.Name);
+                }).error(function (resp) {
+                    alert('ERROR! ' + resp.status + '-' + resp.statusText);
+                });
+            });
+        });
+    </script>
+}  
