@@ -5,7 +5,7 @@
 * ref → [ASP.NET MVC 防範 CSRF 攻擊 - 在 AJAX 裡使用 AntiForgeryToken 的處理](http://kevintsengtw.blogspot.tw/2013/09/aspnet-mvc-csrf-ajax-antiforgerytoken.html)
 
 ## 重點
-1. 建立檢查是否為 ajax 呼叫的函式 
+1. 建立 HttpRequestMessageExtensions 擴增新函式 IsAjaxRequest 檢查是否為 ajax 呼叫 
 >     public static bool IsAjaxRequest(this HttpRequestMessage req)
 2. 建立檢查 Anti-Forgery 的函式
 >     public class AntiForgeryHandler: DelegatingHandler
