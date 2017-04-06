@@ -7,11 +7,11 @@
 ## 重點
 1. 建立 HttpRequestMessageExtensions 擴增新函式 IsAjaxRequest 檢查是否為 ajax 呼叫 
 >     public static bool IsAjaxRequest(this HttpRequestMessage req)
-2. 建立檢查 Anti-Forgery 的函式
->     public class AntiForgeryHandler: DelegatingHandler
-3. 透過 Global.asax.cs 註冊檢查 Anti-Forgery 的函式，於 [\App_Start\WebApiConfig.cs]
+2. 建立檢查 Anti-Forgery 的專用類別
+>     public class AntiForgeryHandler: DelegatingHandler
+3. 透過 Global.asax.cs 註冊檢查 Anti-Forgery 的專用類別，於 [\App_Start\WebApiConfig.cs]
 >     config.MessageHandlers.Add(new AntiForgeryHandler());
-4. Client 部份用 Razer 加入AntiForgeryToken
+4. Client 部份仍用 Razer 加入 AntiForgeryToken
 >     @Html.AntiForgeryToken()
 5. 若呼叫 ajax 函式別忘了 header 也要加入 AntiForgeryToken
 >     headers: {
